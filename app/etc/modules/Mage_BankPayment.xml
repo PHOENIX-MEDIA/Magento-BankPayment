@@ -1,0 +1,12 @@
+<config>
+    <modules>
+        <Mage_BankPayment>
+            <active>false</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Payment />
+            </depends>
+            <version>0.2.2</version>
+        </Mage_BankPayment>
+    </modules>
+</config>
