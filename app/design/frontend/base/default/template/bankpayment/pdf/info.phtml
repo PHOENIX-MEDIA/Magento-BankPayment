@@ -1,0 +1,57 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Mage
+ * @package    Phoenix_BankPayment
+ * @copyright  Copyright (c) 2010 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php if($_info = $this->getInfo()): ?>
+    <?php echo $this->getMethod()->getTitle(); ?>
+    <?php if ($this->getShowBankAccountsInPdf()): ?>
+        <?php echo ' - '.$this->__('Account info'); ?>
+        {{pdf_row_separator}}
+        <?php $_accounts = $this->getAccounts(); ?>
+        <?php foreach($_accounts as $_account): ?>
+        {{pdf_row_separator}}
+        <?php if ($_accountHolder = $_account->getAccountHolder()): ?>
+        <?php echo $this->__('Account holder') ?>: <?php echo $_accountHolder ?>
+        {{pdf_row_separator}}
+        <?php endif; ?>
+        <?php if ($_accountNumber = $_account->getAccountNumber()): ?>
+        <?php echo $this->__('Account number') ?>: <?php echo $_accountNumber ?>
+        {{pdf_row_separator}}
+        <?php endif; ?>
+        <?php if ($_sortCode = $_account->getSortCode()): ?>
+        <?php echo $this->__('Sort code') ?>: <?php echo $_sortCode ?>
+        {{pdf_row_separator}}
+        <?php endif; ?>
+        <?php if ($_bankName = $_account->getBankName()): ?>
+        <?php echo $this->__('Bank name') ?>: <?php echo $_bankName ?>
+        {{pdf_row_separator}}
+        <?php endif; ?>
+        <?php if (($_iban = $_account->getIban()) && ($_bic = $_account->getBic())): ?>
+        {{pdf_row_separator}}
+        <?php echo $this->__('International') ?>
+        {{pdf_row_separator}}
+        <?php echo $this->__('IBAN') ?>: <?php echo $_iban ?>
+        {{pdf_row_separator}}
+        <?php echo $this->__('BIC') ?>: <?php echo $_bic ?>
+        {{pdf_row_separator}}
+        <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    <?php if ($this->getShowCustomTextInPdf() && $_customText = $this->getMethod()->getCustomText()): ?>
+        {{pdf_row_separator}}
+        <?php echo $_customText; ?>
+    <?php endif; ?>
+    {{pdf_row_separator}}
+<?php endif; ?>
