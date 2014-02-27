@@ -30,11 +30,11 @@
         <?php echo $this->__('Bank name') ?>: <?php echo $_bankName ?>
         {{pdf_row_separator}}
         <?php endif; ?>
-        <?php if ($_bankName = $_account->getIban()): ?>
+        <?php if ($_iban = $_account->getIban()): ?>
         <?php echo $this->__('IBAN') ?>: <?php echo $_iban ?>
         {{pdf_row_separator}}
         <?php endif; ?>
-        <?php if ($_bankName = $_account->getBic()): ?>
+        <?php if ($_bic = $_account->getBic()): ?>
         <?php echo $this->__('BIC') ?>: <?php echo $_bic ?>
         {{pdf_row_separator}}
         <?php endif; ?>

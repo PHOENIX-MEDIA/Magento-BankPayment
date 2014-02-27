@@ -52,10 +52,10 @@
                     <?php if ($_bankName = $_account->getBankName()): ?>
                         <tr><td><label><?php echo $this->__('Bank name') ?>:</label> </td><td><?php echo $_bankName ?></td></tr>
                     <?php endif; ?>
-                    <?php if ($_accountNumber = $_account->getIban()): ?>
+                    <?php if ($_iban = $_account->getIban()): ?>
                         <tr><td><label><?php echo $this->__('IBAN') ?>:</label> </td><td><?php echo $_iban ?></td></tr>
                     <?php endif; ?>
-                    <?php if ($_sortCode = $_account->getBic()): ?>
+                    <?php if ($_bic = $_account->getBic()): ?>
                         <tr><td><label><?php echo $this->__('BIC') ?>:</label> </td><td><?php echo $_bic ?></td></tr>
                     <?php endif; ?>
                 </tbody>

@@ -36,13 +36,13 @@
                 <td class="bankcol2"><?php echo $_bankName ?></td>
             </tr>
         <?php endif; ?>
-        <?php if ($_bankName = $_account->getIban()): ?>
+        <?php if ($_iban = $_account->getIban()): ?>
             <tr>
                 <td class="bankcol1"><label><?php echo $this->__('IBAN') ?>:</label> </td>
                 <td class="bankcol2"><?php echo $_iban ?></td>
             </tr>
         <?php endif; ?>
-        <?php if ($_bankName = $_account->getBic()): ?>
+        <?php if ($_bic = $_account->getBic()): ?>
             <tr>
                 <td class="bankcol1"><label><?php echo $this->__('BIC') ?>:</label> </td>
                 <td class="bankcol2"><?php echo $_bic ?></td>
