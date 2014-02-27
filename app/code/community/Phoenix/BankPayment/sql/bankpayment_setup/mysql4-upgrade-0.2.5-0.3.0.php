@@ -22,8 +22,6 @@ $installer->startSetup();
  */
 $accountData = array(
     'account_holder' => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankaccountholder'")),
-    'account_number' => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankaccountnumber'")),
-    'sort_code'      => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/sortcode'")),
     'iban'           => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankiban'")),
     'bank_name'      => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankname'")),
     'bic'            => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankbic'"))
@@ -32,8 +30,6 @@ $installer->setConfigData('payment/bankpayment/bank_accounts', serialize($accoun
 
 // remove old account settings
 $installer->deleteConfigData('payment/bankpayment/bankaccountholder');
-$installer->deleteConfigData('payment/bankpayment/bankaccountnumber');
-$installer->deleteConfigData('payment/bankpayment/sortcode');
 $installer->deleteConfigData('payment/bankpayment/bankname');
 $installer->deleteConfigData('payment/bankpayment/bankiban');
 $installer->deleteConfigData('payment/bankpayment/bankbic');

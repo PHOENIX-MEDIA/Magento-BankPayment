@@ -44,30 +44,6 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
      * @deprecated since 0.3.0
      * support BC for old templates
      */
-    public function getAccountNumber()
-    {
-        if ($accounts = $this->getAccounts()) {
-            return $accounts[0]->getAccountNumber();
-        }
-        return null;
-    }
-
-    /**
-     * @deprecated since 0.3.0
-     * support BC for old templates
-     */
-    public function getSortCode()
-    {
-        if ($accounts = $this->getAccounts()) {
-            return $accounts[0]->getSortCode();
-        }
-        return null;
-    }
-
-    /**
-     * @deprecated since 0.3.0
-     * support BC for old templates
-     */
     public function getBankName()
     {
         if ($accounts = $this->getAccounts()) {

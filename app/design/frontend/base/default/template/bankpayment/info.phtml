@@ -30,41 +30,26 @@
                 <td class="bankcol2"><?php echo $_accountHolder ?></td>
             </tr>
         <?php endif; ?>
-        <?php if ($_accountNumber = $_account->getAccountNumber()): ?>
-            <tr>
-                <td class="bankcol1"><label><?php echo $this->__('Account number') ?></label>: </td>
-                <td class="bankcol2"><?php echo $_accountNumber ?></td>
-            </tr>
-        <?php endif; ?>
-        <?php if ($_sortCode = $_account->getSortCode()): ?>
-            <tr>
-                <td class="bankcol1"><label><?php echo $this->__('Sort code') ?></label>: </td>
-                <td class="bankcol2"><?php echo $_sortCode ?></td>
-            </tr>
-        <?php endif; ?>
         <?php if ($_bankName = $_account->getBankName()): ?>
             <tr>
                 <td class="bankcol1"><label><?php echo $this->__('Bank name') ?></label>: </td>
                 <td class="bankcol2"><?php echo $_bankName ?></td>
             </tr>
         <?php endif; ?>
+        <?php if ($_accountHolder = $_account->getIban()): ?>
+            <tr>
+                <td class="bankcol1"><label><?php echo $this->__('IBAN') ?></label>: </td>
+                <td class="bankcol2"><?php echo $_iban ?></td>
+            </tr>
+        <?php endif; ?>
+        <?php if ($_accountHolder = $_account->getBic()): ?>
+            <tr>
+                <td class="bankcol1"><label><?php echo $this->__('BIC') ?></label>: </td>
+                <td class="bankcol2"><?php echo $_bic ?></td>
+            </tr>
+        <?php endif; ?>
         </tbody>
     </table>
-    <?php if (($_iban = $_account->getIban()) && ($_bic = $_account->getBic())): ?>
-        <div style="font-style:italic;padding-top:5px;"><?php echo $this->__('International') ?></div>
-        <table class="bankpayment_info_int">
-            <tbody>
-                <tr>
-                    <td class="bankcol1"><label><?php echo $this->__('IBAN') ?></label>: </td>
-                    <td class="bankcol2"><?php echo $_iban ?></td>
-                </tr>
-                <tr>
-                    <td class="bankcol1"><label><?php echo $this->__('BIC') ?></label>: </td>
-                    <td class="bankcol2"><?php echo $_bic ?></td>
-                </tr>
-            </tbody>
-        </table>
-    <?php endif; ?>
     <?php endforeach; ?>
     <?php if ($_customText = $this->getMethod()->getCustomText()): ?>
         <br />
