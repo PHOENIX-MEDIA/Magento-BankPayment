@@ -1,5 +1,5 @@
 {
-    "name": "phoenix-media/magento-bankpayment"
+    "name": "phoenix-media/magento-bankpayment",
     "description": "Phoenix media cash on delivery",
     "type": "magento-module",
     "authors": [
