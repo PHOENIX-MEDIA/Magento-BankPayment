@@ -1,11 +1,11 @@
 {
     "name": "phoenix-media/magento-bankpayment",
-    "description": "Phoenix media cash on delivery",
+    "description": "PHOENIX MEDIA cash on delivery",
     "type": "magento-module",
     "authors": [
         {
-            "name": "Phoenix Media",
-            "email": "info@phoenixmedia.com"
+            "name": "PHOENIX MEDIA",
+            "email": "support@phoenix-media.eu"
         }
     ],
     "require": {
