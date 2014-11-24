@@ -1,3 +1,14 @@
 {
-    "name": "phoenix-media/magento-bankpayment"
+    "name": "phoenix-media/magento-bankpayment",
+    "description": "PHOENIX MEDIA cash on delivery",
+    "type": "magento-module",
+    "authors": [
+        {
+            "name": "PHOENIX MEDIA",
+            "email": "support@phoenix-media.eu"
+        }
+    ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
 }
