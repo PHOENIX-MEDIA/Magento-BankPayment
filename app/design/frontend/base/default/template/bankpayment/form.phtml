@@ -22,7 +22,7 @@
         <li>
         <?php if ($_cmsPage = $this->getFormCmsUrl()): ?>
             <div class="input-box">
-                <p><?php echo $this->__('More information on this paymentmethod can be found <a target="_blank" href="%s">here</a>.', $_cmsPage) ?></p>
+                <p><?php echo $this->__('More information on this payment method can be found <a target="_blank" href="%s">here</a>.', $_cmsPage) ?></p>
             </div>
         <?php elseif ($_accounts = $this->getAccounts()): ?>
             <?php if (count($_accounts) == 1): ?>
