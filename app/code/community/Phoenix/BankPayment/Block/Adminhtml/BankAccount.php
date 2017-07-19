@@ -50,10 +50,6 @@ class Phoenix_BankPayment_Block_Adminhtml_BankAccount extends Mage_Adminhtml_Blo
         $html = '<li><fieldset>';
         $html .= '<label>'.$this->__('Account holder').'</label>';
         $html .= '<input class="input-text" type="text" name="'.$this->getElement()->getName().'[account_holder][]" value="' . $this->_getValue('account_holder/'.$i) . '" '.$this->_getDisabled().' />';
-        $html .= '<label>'.$this->__('Account number').'</label>';
-        $html .= '<input class="input-text" type="text" name="'.$this->getElement()->getName().'[account_number][]" value="' . $this->_getValue('account_number/'.$i) . '" '.$this->_getDisabled().' />';
-        $html .= '<label>'.$this->__('Sort code').'</label>';
-        $html .= '<input class="input-text" type="text" name="'.$this->getElement()->getName().'[sort_code][]" value="' . $this->_getValue('sort_code/'.$i) . '" '.$this->_getDisabled().' />';
         $html .= '<label>'.$this->__('Bank name').'</label>';
         $html .= '<input class="input-text" type="text" name="'.$this->getElement()->getName().'[bank_name][]" value="' . $this->_getValue('bank_name/'.$i) . '" '.$this->_getDisabled().' />';
         $html .= '<label>'.$this->__('IBAN').'</label>';

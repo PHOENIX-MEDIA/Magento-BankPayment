@@ -26,24 +26,15 @@
         <?php echo $this->__('Account holder') ?>: <?php echo $_accountHolder ?>
         {{pdf_row_separator}}
         <?php endif; ?>
-        <?php if ($_accountNumber = $_account->getAccountNumber()): ?>
-        <?php echo $this->__('Account number') ?>: <?php echo $_accountNumber ?>
-        {{pdf_row_separator}}
-        <?php endif; ?>
-        <?php if ($_sortCode = $_account->getSortCode()): ?>
-        <?php echo $this->__('Sort code') ?>: <?php echo $_sortCode ?>
-        {{pdf_row_separator}}
-        <?php endif; ?>
         <?php if ($_bankName = $_account->getBankName()): ?>
         <?php echo $this->__('Bank name') ?>: <?php echo $_bankName ?>
         {{pdf_row_separator}}
         <?php endif; ?>
-        <?php if (($_iban = $_account->getIban()) && ($_bic = $_account->getBic())): ?>
-        {{pdf_row_separator}}
-        <?php echo $this->__('International') ?>
-        {{pdf_row_separator}}
+        <?php if ($_iban = $_account->getIban()): ?>
         <?php echo $this->__('IBAN') ?>: <?php echo $_iban ?>
         {{pdf_row_separator}}
+        <?php endif; ?>
+        <?php if ($_bic = $_account->getBic()): ?>
         <?php echo $this->__('BIC') ?>: <?php echo $_bic ?>
         {{pdf_row_separator}}
         <?php endif; ?>
