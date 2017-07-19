@@ -28,6 +28,9 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
     protected $_infoBlockType = 'bankpayment/info';
     protected $_accounts;
 
+    protected $_canCapture                  = true;
+    protected $_canCapturePartial           = true;
+
     /**
      * @deprecated since 0.3.0
      * support BC for old templates
