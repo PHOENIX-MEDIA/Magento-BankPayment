@@ -1,6 +1,6 @@
-app/code/community/Phoenix/BankPayment/* app/code/community/Phoenix/BankPayment/
-app/design/adminhtml/default/default/template/bankpayment/* app/design/adminhtml/default/default/template/bankpayment/
-app/design/frontend/base/default/template/bankpayment/* app/design/frontend/base/default/template/bankpayment/
+app/code/community/Phoenix/BankPayment app/code/community/Phoenix/BankPayment
+app/design/adminhtml/default/default/template/bankpayment app/design/adminhtml/default/default/template/bankpayment
+app/design/frontend/base/default/template/bankpayment app/design/frontend/base/default/template/bankpayment
 app/etc/modules/Phoenix_BankPayment.xml app/etc/modules/Phoenix_BankPayment.xml
 app/locale/da_DK/Phoenix_BankPayment.csv app/locale/da_DK/Phoenix_BankPayment.csv
 app/locale/de_DE/Phoenix_BankPayment.csv app/locale/de_DE/Phoenix_BankPayment.csv
