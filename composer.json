@@ -30,6 +30,7 @@
       ["app/locale/nl_NL/Phoenix_BankPayment.csv", "app/locale/nl_NL/Phoenix_BankPayment.csv"],
       ["app/locale/pl_PL/Phoenix_BankPayment.csv", "app/locale/pl_PL/Phoenix_BankPayment.csv"],
       ["app/locale/pt_BR/Phoenix_BankPayment.csv", "app/locale/pt_BR/Phoenix_BankPayment.csv"],
+      ["app/locale/pt_PT/Phoenix_BankPayment.csv", "app/locale/pt_PT/Phoenix_BankPayment.csv"],
       ["app/locale/tr_TR/Phoenix_BankPayment.csv", "app/locale/tr_TR/Phoenix_BankPayment.csv"]
     ]
   },
