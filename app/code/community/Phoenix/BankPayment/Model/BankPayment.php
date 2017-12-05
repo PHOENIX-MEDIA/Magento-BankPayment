@@ -18,22 +18,22 @@
 class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Abstract
 {
     /**
-    * unique internal payment method identifier
-    *
-    * @var string [a-z0-9_]
-    */
+     * unique internal payment method identifier
+     *
+     * @var string [a-z0-9_]
+     */
     protected $_code = 'bankpayment';
 
     protected $_formBlockType = 'bankpayment/form';
     protected $_infoBlockType = 'bankpayment/info';
     protected $_accounts;
+    protected $_storeId = null;
 
     protected $_canCapture                  = true;
     protected $_canCapturePartial           = true;
 
     /**
-     * @deprecated since 0.3.0
-     * support BC for old templates
+     * @return string|null
      */
     public function getAccountHolder()
     {
@@ -44,8 +44,7 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
     }
 
     /**
-     * @deprecated since 0.3.0
-     * support BC for old templates
+     * @return string|null
      */
     public function getBankName()
     {
@@ -56,8 +55,7 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
     }
 
     /**
-     * @deprecated since 0.3.0
-     * support BC for old templates
+     * @return string|null
      */
     public function getIBAN()
     {
@@ -68,8 +66,7 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
     }
 
     /**
-     * @deprecated since 0.3.0
-     * support BC for old templates
+     * @return string|null
      */
     public function getBIC()
     {
@@ -79,35 +76,52 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
         return null;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPayWithinXDays()
     {
-        return $this->getConfigData('paywithinxdays');
+        return $this->getConfigData('paywithinxdays', $this->getStoreId());
     }
 
+    /**
+     * @param bool $addNl2Br
+     * @return mixed|string
+     */
     public function getCustomText($addNl2Br = true)
     {
-        $customText = $this->getConfigData('customtext');
+        $customText = $this->getConfigData('customtext', $this->getStoreId());
         if ($addNl2Br) {
             $customText = nl2br($customText);
         }
         return $customText;
     }
 
+    /**
+     * get the correct store id
+     *
+     * @return int
+     */
+    protected function getStoreId()
+    {
+        $paymentInfo = $this->getInfoInstance();
+        if ($currentOrder = Mage::registry('current_order')) {
+            $this->_storeId = $currentOrder->getStoreId();
+        } elseif ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
+            $this->_storeId = $paymentInfo->getOrder()->getStoreId();
+        }  else {
+            $this->_storeId = $paymentInfo->getQuote()->getStoreId();
+        }
+        return $this->_storeId;
+    }
+
+    /**
+     * @return array
+     */
     public function getAccounts()
     {
         if (!$this->_accounts) {
-            $paymentInfo = $this->getInfoInstance();
-            $storeId = null;
-            if ($currentOrder = Mage::registry('current_order')) {
-                $storeId = $currentOrder->getStoreId();
-            } elseif ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
-                $storeId = $paymentInfo->getOrder()->getStoreId();
-            } else {
-                $storeId = $paymentInfo->getQuote()->getStoreId();
-            }
-
-            $accounts = unserialize(Mage::getStoreConfig('payment/bankpayment/bank_accounts',$storeId));
-
+            $accounts = unserialize($this->getConfigData('bank_accounts', $this->getStoreId()));
             $this->_accounts = array();
             $fields = is_array($accounts) ? array_keys($accounts) : null;
             if (!empty($fields)) {
@@ -115,7 +129,7 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
                     if ($k) {
                         $account = new Varien_Object();
                         foreach ($fields as $field) {
-                            $account->setData($field,$accounts[$field][$i]);
+                            $account->setData($field, $accounts[$field][$i]);
                         }
                         $this->_accounts[] = $account;
                     }
