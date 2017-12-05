@@ -64,10 +64,10 @@
     <default>
         <payment>
             <bankpayment>
-                <active>0</active>
+                <title>Bank Prepayment</title>
+                <enable>0</enable>
                 <model>bankpayment/bankPayment</model>
                 <order_status>1</order_status>
-                <title>Bank Prepayment</title>
                 <allowspecific>0</allowspecific>
                 <form_block_type>0</form_block_type>
             </bankpayment>
