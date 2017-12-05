@@ -24,7 +24,7 @@
 <config>
     <modules>
         <Phoenix_BankPayment>
-            <version>1.2.1</version>
+            <version>1.2.2</version>
         </Phoenix_BankPayment>
     </modules>
     <global>
@@ -33,6 +33,16 @@
                 <class>Phoenix_BankPayment_Model</class>
             </bankpayment>
         </models>
+        <blocks>
+            <bankpayment>
+                <class>Phoenix_BankPayment_Block</class>
+            </bankpayment>
+        </blocks>
+        <helpers>
+            <bankpayment>
+                <class>Phoenix_BankPayment_Helper</class>
+            </bankpayment>
+        </helpers>
         <resources>
             <bankpayment_setup>
                 <setup>
@@ -50,16 +60,6 @@
                 <use>core_read</use>
             </bankpayment_read>
         </resources>
-        <blocks>
-            <bankpayment>
-                <class>Phoenix_BankPayment_Block</class>
-            </bankpayment>
-        </blocks>
-        <helpers>
-            <bankpayment>
-                <class>Phoenix_BankPayment_Helper</class>
-            </bankpayment>
-        </helpers>        
     </global>
     <default>
         <payment>
@@ -70,6 +70,8 @@
                 <order_status>1</order_status>
                 <allowspecific>0</allowspecific>
                 <form_block_type>0</form_block_type>
+                <show_bank_accounts_in_pdf>1</show_bank_accounts_in_pdf>
+                <show_customtext_in_pdf>1</show_customtext_in_pdf>
             </bankpayment>
         </payment>
     </default>
@@ -95,14 +97,4 @@
             </modules>
         </translate>
     </frontend>
-    <default>
-        <payment>
-            <bankpayment>
-                <title>Vorkasse</title>
-                <active>1</active>
-                <show_bank_accounts_in_pdf>1</show_bank_accounts_in_pdf>
-                <show_customtext_in_pdf>1</show_customtext_in_pdf>
-            </bankpayment>
-        </payment>
-    </default>
 </config>
