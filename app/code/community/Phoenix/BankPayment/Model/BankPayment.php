@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Magento
  *
@@ -11,29 +10,30 @@
  *
  * @category   Mage
  * @package    Phoenix_BankPayment
- * @copyright  Copyright (c) 2010 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2010-2016 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2017 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Abstract
 {
     /**
-    * unique internal payment method identifier
-    *
-    * @var string [a-z0-9_]
-    */
+     * unique internal payment method identifier
+     *
+     * @var string [a-z0-9_]
+     */
     protected $_code = 'bankpayment';
 
     protected $_formBlockType = 'bankpayment/form';
     protected $_infoBlockType = 'bankpayment/info';
     protected $_accounts;
+    protected $_storeId = null;
 
     protected $_canCapture                  = true;
     protected $_canCapturePartial           = true;
 
     /**
-     * @deprecated since 0.3.0
-     * support BC for old templates
+     * @return string|nil
      */
     public function getAccountHolder()
     {
@@ -44,8 +44,7 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
     }
 
     /**
-     * @deprecated since 0.3.0
-     * support BC for old templates
+     * @return string|nil
      */
     public function getBankName()
     {
@@ -56,8 +55,7 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
     }
 
     /**
-     * @deprecated since 0.3.0
-     * support BC for old templates
+     * @return string|nil
      */
     public function getIBAN()
     {
@@ -68,8 +66,7 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
     }
 
     /**
-     * @deprecated since 0.3.0
-     * support BC for old templates
+     * @return string|nil
      */
     public function getBIC()
     {
@@ -79,35 +76,52 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
         return null;
     }
 
+    /**
+     * @return string|nil
+     */
     public function getPayWithinXDays()
     {
-        return $this->getConfigData('paywithinxdays');
+        $storeId = $this->getStoreId();
+        return Mage::getStoreConfig('payment/bankpayment/paywithinxdays', $storeId);
     }
 
+    /**
+     * @return string
+     */
     public function getCustomText($addNl2Br = true)
     {
-        $customText = $this->getConfigData('customtext');
+        $storeId = $this->getStoreId();
+        $customText = Mage::getStoreConfig('payment/bankpayment/customtext', $storeId);
         if ($addNl2Br) {
             $customText = nl2br($customText);
         }
         return $customText;
     }
 
+    /**
+     * get the correct store id
+     *
+     * @return int
+     */
+    protected function getStoreId()
+    {
+        $paymentInfo = $this->getInfoInstance();
+        if ($currentOrder = Mage::registry('current_order')) {
+            $this->_storeId = $currentOrder->getStoreId();
+        } elseif ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
+            $this->_storeId = $paymentInfo->getOrder()->getStoreId();
+        }
+        return $this->_storeId;
+    }
+
+    /**
+     * @return array
+     */
     public function getAccounts()
     {
         if (!$this->_accounts) {
-            $paymentInfo = $this->getInfoInstance();
-            $storeId = null;
-            if ($currentOrder = Mage::registry('current_order')) {
-                $storeId = $currentOrder->getStoreId();
-            } elseif ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
-                $storeId = $paymentInfo->getOrder()->getStoreId();
-            } else {
-                $storeId = $paymentInfo->getQuote()->getStoreId();
-            }
-
-            $accounts = unserialize(Mage::getStoreConfig('payment/bankpayment/bank_accounts',$storeId));
-
+            $storeId = $this->getStoreId();
+            $accounts = unserialize(Mage::getStoreConfig('payment/bankpayment/bank_accounts', $storeId));
             $this->_accounts = array();
             $fields = is_array($accounts) ? array_keys($accounts) : null;
             if (!empty($fields)) {
@@ -115,7 +129,7 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
                     if ($k) {
                         $account = new Varien_Object();
                         foreach ($fields as $field) {
-                            $account->setData($field,$accounts[$field][$i]);
+                            $account->setData($field, $accounts[$field][$i]);
                         }
                         $this->_accounts[] = $account;
                     }
