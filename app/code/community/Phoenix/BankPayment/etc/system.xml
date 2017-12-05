@@ -1,4 +1,26 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Phoenix
+ * @package    Phoenix_BankPayment
+ * @copyright  Copyright (c) 2008-2009 Andrej Sinicyn, Mik3e
+ * @copyright  Copyright (c) 2010-2016 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2017 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
 <config>
     <sections>
         <payment>
@@ -11,7 +33,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <active translate="label">
+                        <enable translate="label">
                             <label>Enabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -19,7 +41,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </active>
+                        </enable>
                         <title translate="label">
                             <label>Title</label>
                             <frontend_type>text</frontend_type>
@@ -63,7 +85,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </specificcountry>
-                        <min_order_total>
+                        <min_order_total translate="label">
                             <label>Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>71</sort_order>
@@ -71,7 +93,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </min_order_total>
-                        <max_order_total>
+                        <max_order_total translate="label">
                             <label>Maximum Order Total</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>72</sort_order>
@@ -81,7 +103,7 @@
                         </max_order_total>
                         <bank_accounts translate="label,comment">
                             <label>Bank Accounts</label>
-                            <frontend_model>bankpayment/adminhtml_bankAccount</frontend_model>
+                            <frontend_model>bankpayment/adminhtml_system_config_form_bankaccount</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
