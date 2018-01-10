@@ -65,6 +65,8 @@
                 <order_status>1</order_status>
                 <allowspecific>0</allowspecific>
                 <form_block_type>0</form_block_type>
+                <show_bank_accounts_in_pdf>1</show_bank_accounts_in_pdf>
+                <show_customtext_in_pdf>1</show_customtext_in_pdf>
             </bankpayment>
         </payment>
     </default>
@@ -90,14 +92,4 @@
             </modules>
         </translate>
     </frontend>
-    <default>
-        <payment>
-            <bankpayment>
-                <title>Vorkasse</title>
-                <active>1</active>
-                <show_bank_accounts_in_pdf>1</show_bank_accounts_in_pdf>
-                <show_customtext_in_pdf>1</show_customtext_in_pdf>
-            </bankpayment>
-        </payment>
-    </default>
 </config>
