@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Magento
  *
@@ -21,14 +20,20 @@ class Phoenix_BankPayment_Block_Form extends Mage_Payment_Block_Form
     protected function _construct()
     {
         parent::_construct();
-        $this->setTemplate('bankpayment/form.phtml');
+        $this->setTemplate('phoenix_bankpayment/form.phtml');
     }
 
+    /**
+     * @return string
+     */
     public function getCustomFormBlockType()
     {
         return $this->getMethod()->getConfigData('form_block_type');
     }
 
+    /**
+     * @return string
+     */
     public function getFormCmsUrl()
     {
         $pageUrl = null;
@@ -41,11 +46,18 @@ class Phoenix_BankPayment_Block_Form extends Mage_Payment_Block_Form
         return $pageUrl;
     }
 
+    /**
+     * @return array
+     */
     public function getAccounts()
     {
         return $this->getMethod()->getAccounts();
     }
 
+    /**
+     * @param boolean $addNl2Br
+     * @return string
+     */
     public function getCustomText($addNl2Br = true)
     {
         return $this->getMethod()->getCustomText($addNl2Br);

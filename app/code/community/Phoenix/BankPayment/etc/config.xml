@@ -1,8 +1,30 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Phoenix
+ * @package    Phoenix_BankPayment
+ * @copyright  Copyright (c) 2008-2009 Andrej Sinicyn, Mik3e
+ * @copyright  Copyright (c) 2010-2016 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2017 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
 <config>
     <modules>
         <Phoenix_BankPayment>
-            <version>1.2.0</version>
+            <version>1.2.2</version>
         </Phoenix_BankPayment>
     </modules>
     <global>
@@ -11,6 +33,16 @@
                 <class>Phoenix_BankPayment_Model</class>
             </bankpayment>
         </models>
+        <blocks>
+            <bankpayment>
+                <class>Phoenix_BankPayment_Block</class>
+            </bankpayment>
+        </blocks>
+        <helpers>
+            <bankpayment>
+                <class>Phoenix_BankPayment_Helper</class>
+            </bankpayment>
+        </helpers>
         <resources>
             <bankpayment_setup>
                 <setup>
@@ -28,26 +60,18 @@
                 <use>core_read</use>
             </bankpayment_read>
         </resources>
-        <blocks>
-            <bankpayment>
-                <class>Phoenix_BankPayment_Block</class>
-            </bankpayment>
-        </blocks>
-        <helpers>
-            <bankpayment>
-                <class>Phoenix_BankPayment_Helper</class>
-            </bankpayment>
-        </helpers>        
     </global>
     <default>
         <payment>
             <bankpayment>
-                <active>0</active>
+                <title>Bank Prepayment</title>
+                <enable>0</enable>
                 <model>bankpayment/bankPayment</model>
                 <order_status>1</order_status>
-                <title>Bank Prepayment</title>
                 <allowspecific>0</allowspecific>
                 <form_block_type>0</form_block_type>
+                <show_bank_accounts_in_pdf>1</show_bank_accounts_in_pdf>
+                <show_customtext_in_pdf>1</show_customtext_in_pdf>
             </bankpayment>
         </payment>
     </default>
@@ -73,14 +97,4 @@
             </modules>
         </translate>
     </frontend>
-    <default>
-        <payment>
-            <bankpayment>
-                <title>Vorkasse</title>
-                <active>1</active>
-                <show_bank_accounts_in_pdf>1</show_bank_accounts_in_pdf>
-                <show_customtext_in_pdf>1</show_customtext_in_pdf>
-            </bankpayment>
-        </payment>
-    </default>
 </config>
