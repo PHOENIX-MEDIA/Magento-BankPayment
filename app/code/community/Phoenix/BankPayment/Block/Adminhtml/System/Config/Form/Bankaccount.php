@@ -10,12 +10,9 @@
  *
  * @category   Mage
  * @package    Phoenix_BankPayment
- * @copyright  Copyright (c) 2010 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2008 Andrej Sinicyn
+ * @copyright  Copyright (c) 2010-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- *
- * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
- * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
- * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends Mage_Adminhtml_Block_System_Config_Form_Field
@@ -24,7 +21,7 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
     protected $_removeRowButtonHtml = array();
 
     /**
-     * @param string Varien_Data_Form_Element_Abstract
+     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -36,50 +33,36 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
         $html .= '</div>';
 
         $html .= '<ul id="bank_account_container">';
-        if ($accountHolder = $this->_getValue('account_holder')) {
-            foreach ($accountHolder as $i => $f) {
+        if ($this->_getValue('account_holder')) {
+            foreach ($this->_getValue('account_holder') as $i=>$f) {
                 if ($i) {
                     $html .= $this->_getRowTemplateHtml($i);
                 }
             }
         }
-/**
-        if ($accountHolder = $this->_getValue('account_holder')) {
-            $html .= $this->_getRowTemplateHtml($accountHolder);
-        }
-*/
         $html .= '</ul>';
         $html .= $this->_getAddRowButtonHtml('bank_account_container',
-                'bank_account_template', $this->__('Add Bank Account'));
+            'bank_account_template', $this->__('Add Bank Account'));
 
         return $html;
     }
 
     /**
-     * @param integer
+     * @param int $i
      * @return string
      */
-    protected function _getRowTemplateHtml($i = 0)
+    protected function _getRowTemplateHtml($i=0)
     {
-        $allowedCurrencies = Mage::getModel('directory/currency')->getConfigAllowCurrencies();
         $html = '<li><fieldset>';
-        $html .= '<label>' . $this->__('Account holder') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[account_holder][]" value="' . $this->_getValue('account_holder/' . $i) . '" ' . $this->_getDisabled() . ' />';
-        $html .= '<label>' . $this->__('Bank name') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[bank_name][]" value="' . $this->_getValue('bank_name/' . $i) . '" ' . $this->_getDisabled() . ' />';
-        $html .= '<label>' . $this->__('Account number') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[account_number][]" value="' . $this->_getValue('account_number/' . $i) . '" ' . $this->_getDisabled() . ' />';
-        $html .= '<label>' . $this->__('Sort code') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[sort_code][]" value="' . $this->_getValue('sort_code/' . $i) . '" ' . $this->_getDisabled() . ' />';
-        $html .= '<label>' . $this->__('BIC') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[bic][]" value="' . $this->_getValue('bic/' . $i) . '" ' . $this->_getDisabled() . ' />';
-        $html .= '<label>' . $this->__('IBAN') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[iban][]" value="' . $this->_getValue('iban/' . $i) . '" ' . $this->_getDisabled() . ' />';
-        $html .= '<label>' . $this->__('Currency') . '</label><br/>';
-        foreach ($allowedCurrencies as $k => $v) {
-            $html .= '&nbsp; &nbsp;<input type="checkbox" name="' . $this->getElement()->getName() . '[currencies][' . $i . '][]" value="' . $v . '" ' . (is_array($this->_getValue('currencies/' . $i)) ? in_array($v, $this->_getValue('currencies/' . $i)) ? 'checked=checked' : '' : '') . ' /> ' . $v . '<br />';
-        }
-        $html .= '<br />';
+        $html .= '<label>'.$this->__('Account holder').'</label>';
+        $html .= '<input class="input-text" type="text" name="'.$this->getElement()->getName().'[account_holder][]" value="' . $this->_getValue('account_holder/'.$i) . '" '.$this->_getDisabled().' />';
+        $html .= '<label>'.$this->__('Bank name').'</label>';
+        $html .= '<input class="input-text" type="text" name="'.$this->getElement()->getName().'[bank_name][]" value="' . $this->_getValue('bank_name/'.$i) . '" '.$this->_getDisabled().' />';
+        $html .= '<label>'.$this->__('IBAN').'</label>';
+        $html .= '<input class="input-text" type="text" name="'.$this->getElement()->getName().'[iban][]" value="' . $this->_getValue('iban/'.$i) . '" '.$this->_getDisabled().' />';
+        $html .= '<label>'.$this->__('BIC').'</label>';
+        $html .= '<input class="input-text" type="text" name="'.$this->getElement()->getName().'[bic][]" value="' . $this->_getValue('bic/'.$i) . '" '.$this->_getDisabled().' />';
+        $html .= '<br />&nbsp;<br />';
         $html .= $this->_getRemoveRowButtonHtml();
         $html .= '</fieldset></li>';
 
@@ -95,40 +78,40 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
     }
 
     /**
-     * @param string $key
-     * @return string
+     * @param $key
+     * @return mixed
      */
     protected function _getValue($key)
     {
-        return $this->getElement()->getData('value/' . $key);
+        return $this->getElement()->getData('value/'.$key);
     }
 
     /**
-     * @param string $key
-     * @param string $value
+     * @param $key
+     * @param $value
      * @return string
      */
     protected function _getSelected($key, $value)
     {
-        return $this->getElement()->getData('value/' . $key) == $value ? 'selected="selected"' : '';
+        return $this->getElement()->getData('value/'.$key)==$value ? 'selected="selected"' : '';
     }
 
     /**
-     * @param string $container
-     * @param string $template
+     * @param $container
+     * @param $template
      * @param string $title
-     * @return array
+     * @return mixed
      */
-    protected function _getAddRowButtonHtml($container, $template, $title = 'Add')
+    protected function _getAddRowButtonHtml($container, $template, $title='Add')
     {
         if (!isset($this->_addRowButtonHtml[$container])) {
             $this->_addRowButtonHtml[$container] = $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setType('button')
-                    ->setClass('add ' . $this->_getDisabled())
-                    ->setLabel($this->__($title))
-                    ->setOnClick("Element.insert($('" . $container . "'), {bottom: $('" . $template . "').innerHTML})")
-                    ->setDisabled($this->_getDisabled())
-                    ->toHtml();
+                ->setType('button')
+                ->setClass('add '.$this->_getDisabled())
+                ->setLabel($this->__($title))
+                ->setOnClick("Element.insert($('".$container."'), {bottom: $('".$template."').innerHTML})")
+                ->setDisabled($this->_getDisabled())
+                ->toHtml();
         }
         return $this->_addRowButtonHtml[$container];
     }
@@ -138,16 +121,16 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
      * @param string $title
      * @return array
      */
-    protected function _getRemoveRowButtonHtml($selector = 'li', $title = 'Delete Account')
+    protected function _getRemoveRowButtonHtml($selector='li', $title='Delete Account')
     {
         if (!$this->_removeRowButtonHtml) {
             $this->_removeRowButtonHtml = $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setType('button')
-                    ->setClass('delete v-middle ' . $this->_getDisabled())
-                    ->setLabel($this->__($title))
-                    ->setOnClick("Element.remove($(this).up('" . $selector . "'))")
-                    ->setDisabled($this->_getDisabled())
-                    ->toHtml();
+                ->setType('button')
+                ->setClass('delete v-middle '.$this->_getDisabled())
+                ->setLabel($this->__($title))
+                ->setOnClick("Element.remove($(this).up('".$selector."'))")
+                ->setDisabled($this->_getDisabled())
+                ->toHtml();
         }
         return $this->_removeRowButtonHtml;
     }
