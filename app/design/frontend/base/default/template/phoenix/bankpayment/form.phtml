@@ -16,6 +16,7 @@
  */
 
 ?>
+<?php $_helper = Mage::helper('bankpayment'); ?>
 <fieldset class="form-list">
     <ul id="payment_form_<?php echo $this->getMethodCode(); ?>" style="display:none">
         <li>
@@ -47,16 +48,31 @@
                     <table>
                         <tbody>
                             <?php if ($_accountHolder = $_account->getAccountHolder()): ?>
-                                <tr><td><label><?php echo $this->__('Account holder') ?></label>: </td><td><?php echo $_accountHolder ?></td></tr>
+                                <tr><td><label><?php echo $this->__('Account holder') ?>:</label> </td><td><?php echo $_accountHolder ?></td></tr>
                             <?php endif; ?>
                             <?php if ($_bankName = $_account->getBankName()): ?>
-                                <tr><td><label><?php echo $this->__('Bank name') ?></label>: </td><td><?php echo $_bankName ?></td></tr>
+                                <tr><td><label><?php echo $this->__('Bank name') ?>:</label> </td><td><?php echo $_bankName ?></td></tr>
                             <?php endif; ?>
-                            <?php if ($_iban = $_account->getIban()): ?>
-                                <tr><td><label><?php echo $this->__('IBAN') ?></label>: </td><td><?php echo $_iban ?></td></tr>
+                            <?php if ($_helper->displaySepaAccountData($_account)): ?>
+                                <?php if ($_iban = $_account->getIban()): ?>
+                                    <tr><td><label><?php echo $this->__('IBAN') ?>:</label> </td><td><?php echo $_iban ?></td></tr>
+                                <?php endif; ?>
+                                <?php if ($_bic = $_account->getBic()): ?>
+                                    <tr><td><label><?php echo $this->__('BIC') ?>:</label> </td><td><?php echo $_bic ?></td></tr>
+                                <?php endif; ?>
                             <?php endif; ?>
-                            <?php if ($_bic = $_account->getBic()): ?>
-                                <tr><td><label><?php echo $this->__('BIC') ?></label>: </td><td><?php echo $_bic ?></td></tr>
+                            <?php if ($_helper->displayNonSepaAccountData($_account)): ?>
+                                <?php if ($_helper->displayFullAccountData($_account)): ?>
+                                    <tr><td colspan="2"><br /><strong><?php echo $this->__('Account data for non SEPA countries'); ?></strong></td></tr>
+                                <?php endif; ?>
+                                <?php if ($_accountNumber = $_account->getAccountNumber()): ?>
+                                    <tr><td><label><?php echo $this->__('Account number') ?>:</label> </td><td><?php echo $_accountNumber ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php if ($_sortCode = $_account->getSortCode()): ?>
+                                    <tr><td><label><?php echo $this->__('Sort code') ?>:</label> </td><td><?php echo $_sortCode ?></td>
+                                    </tr>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </tbody>
                     </table>

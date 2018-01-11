@@ -18,6 +18,7 @@
 ?>
 <p>
     <?php echo $this->getMethod()->getTitle(); ?> - <span style="font-style:italic;"><?php echo $this->__('Account info'); ?></span><br />
+    <?php $_helper = Mage::helper('bankpayment'); ?>
     <?php $_accounts = $this->getAccounts(); ?>
     <?php foreach($_accounts as $_account): ?>
     <br />
@@ -25,27 +26,48 @@
         <tbody>
         <?php if ($_accountHolder = $_account->getAccountHolder()): ?>
             <tr>
-                <td class="bankcol1"><label><?php echo $this->__('Account holder') ?></label>: </td>
+                <td class="bankcol1"><label><?php echo $this->__('Account holder') ?>:</label> </td>
                 <td class="bankcol2"><?php echo $_accountHolder ?></td>
             </tr>
         <?php endif; ?>
         <?php if ($_bankName = $_account->getBankName()): ?>
             <tr>
-                <td class="bankcol1"><label><?php echo $this->__('Bank name') ?></label>: </td>
+                <td class="bankcol1"><label><?php echo $this->__('Bank name') ?>:</label> </td>
                 <td class="bankcol2"><?php echo $_bankName ?></td>
             </tr>
         <?php endif; ?>
-        <?php if ($_iban = $_account->getIban()): ?>
-            <tr>
-                <td class="bankcol1"><label><?php echo $this->__('IBAN') ?></label>: </td>
-                <td class="bankcol2"><?php echo $_iban ?></td>
-            </tr>
+        <?php if ($_helper->displaySepaAccountData($_account)): ?>
+            <?php if ($_iban = $_account->getIban()): ?>
+                <tr>
+                    <td class="bankcol1"><label><?php echo $this->__('IBAN') ?>:</label> </td>
+                    <td class="bankcol2"><?php echo $_iban ?></td>
+                </tr>
+            <?php endif; ?>
+            <?php if ($_bic = $_account->getBic()): ?>
+                <tr>
+                    <td class="bankcol1"><label><?php echo $this->__('BIC') ?>:</label> </td>
+                    <td class="bankcol2"><?php echo $_bic ?></td>
+                </tr>
+            <?php endif; ?>
         <?php endif; ?>
-        <?php if ($_bic = $_account->getBic()): ?>
-            <tr>
-                <td class="bankcol1"><label><?php echo $this->__('BIC') ?></label>: </td>
-                <td class="bankcol2"><?php echo $_bic ?></td>
-            </tr>
+        <?php if ($_helper->displayNonSepaAccountData($_account)): ?>
+            <?php if ($_helper->displayFullAccountData($_account)): ?>
+                <tr>
+                    <td colspan="2"><br /><b><?php echo $this->__('Account data for non SEPA countries'); ?></b></td>
+                </tr>
+            <?php endif; ?>
+            <?php if ($_accountNumber = $_account->getAccountNumber()): ?>
+                <tr>
+                    <td class="bankcol1"><label><?php echo $this->__('Account number') ?>:</label> </td>
+                    <td class="bankcol2"><?php echo $_accountNumber ?></td>
+                </tr>
+            <?php endif; ?>
+            <?php if ($_sortCode = $_account->getSortCode()): ?>
+                <tr>
+                    <td class="bankcol1"><label><?php echo $this->__('Sort code') ?>:</label> </td>
+                    <td class="bankcol2"><?php echo $_sortCode ?></td>
+                </tr>
+            <?php endif; ?>
         <?php endif; ?>
         </tbody>
     </table>

@@ -17,4 +17,27 @@
 
 class Phoenix_BankPayment_Helper_Data extends Mage_Core_Helper_Abstract {
 
+    /**
+     * @param Varien_Object $account
+     * @return bool
+     */
+    public function displayFullAccountData($account) {
+        return ($this->displaySepaAccountData($account) && $this->displayNonSepaAccountData($account));
+    }
+
+    /**
+     * @param Varien_Object $account
+     * @return bool
+     */
+    public function displayNonSepaAccountData($account) {
+        return ($account->getAccountNumber() && $account->getSortCode());
+    }
+
+    /**
+     * @param Varien_Object $account
+     * @return bool
+     */
+    public function displaySepaAccountData($account) {
+        return ($account->getIban());
+    }
 }

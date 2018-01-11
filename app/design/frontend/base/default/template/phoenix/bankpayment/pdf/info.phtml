@@ -14,31 +14,50 @@
  * @copyright  Copyright (c) 2010-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 ?>
 <?php if($_info = $this->getInfo()): ?>
+    <?php $_helper = Mage::helper('bankpayment'); ?>
     <?php echo $this->getMethod()->getTitle(); ?>
     <?php if ($this->getShowBankAccountsInPdf()): ?>
         <?php echo ' - '.$this->__('Account info'); ?>
         {{pdf_row_separator}}
         <?php $_accounts = $this->getAccounts(); ?>
         <?php foreach($_accounts as $_account): ?>
-        {{pdf_row_separator}}
-        <?php if ($_bankName = $_account->getBankName()): ?>
-        <?php echo $this->__('Bank name') ?>: <?php echo $_bankName ?>
-        {{pdf_row_separator}}
-        <?php endif; ?>
-        <?php if ($_accountNumber = $_account->getAccountNumber()): ?>
-        <?php echo $this->__('Account number') ?>: <?php echo $_accountNumber ?>
-        {{pdf_row_separator}}
-        <?php endif; ?>
-        <?php if ($_iban = $_account->getIban()): ?>
-        <?php echo $this->__('IBAN') ?>: <?php echo $_iban ?>
-        {{pdf_row_separator}}
-        <?php endif; ?>
-        <?php if ($_bic = $_account->getBic()): ?>
-        <?php echo $this->__('BIC') ?>: <?php echo $_bic ?>
-        {{pdf_row_separator}}
-        <?php endif; ?>
+            {{pdf_row_separator}}
+            <?php if ($_accountHolder = $_account->getAccountHolder()): ?>
+                <?php echo $this->__('Account holder') ?>: <?php echo $_accountHolder ?>
+                {{pdf_row_separator}}
+            <?php endif; ?>
+            <?php if ($_bankName = $_account->getBankName()): ?>
+                <?php echo $this->__('Bank name') ?>: <?php echo $_bankName ?>
+                {{pdf_row_separator}}
+            <?php endif; ?>
+            <?php if ($_helper->displaySepaAccountData($_account)): ?>
+                <?php if ($_iban = $_account->getIban()): ?>
+                    <?php echo $this->__('IBAN') ?>: <?php echo $_iban ?>
+                    {{pdf_row_separator}}
+                <?php endif; ?>
+                <?php if ($_bic = $_account->getBic()): ?>
+                    <?php echo $this->__('BIC') ?>: <?php echo $_bic ?>
+                    {{pdf_row_separator}}
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if ($_helper->displayNonSepaAccountData($_account)): ?>
+                <?php if ($_helper->displayFullAccountData($_account)): ?>
+                    {{pdf_row_separator}}
+                    --- <?php echo $this->__('Account data for non SEPA countries'); ?> ---
+                    {{pdf_row_separator}}
+                <?php endif; ?>
+                <?php if ($_accountNumber = $_account->getAccountNumber()): ?>
+                    <?php echo $this->__('Account number') ?>: <?php echo $_accountNumber ?>
+                    {{pdf_row_separator}}
+                <?php endif; ?>
+                <?php if ($_sortCode = $_account->getSortCode()): ?>
+                    <?php echo $this->__('Sort code') ?>: <?php echo $_sortCode ?>
+                    {{pdf_row_separator}}
+                <?php endif; ?>
+            <?php endif; ?>
         <?php endforeach; ?>
     <?php endif; ?>
     <?php if ($this->getShowCustomTextInPdf() && $_customText = $this->getMethod()->getCustomText()): ?>

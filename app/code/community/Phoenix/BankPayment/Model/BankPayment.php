@@ -79,6 +79,27 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
     /**
      * @return string|null
      */
+    public function getAccountNumber()
+    {
+        if ($accounts = $this->getAccounts()) {
+            return $accounts[0]->getAccountNumber();
+        }
+        return null;
+    }
+    /**
+     * @return string|null
+     */
+    public function getSortCode()
+    {
+        if ($accounts = $this->getAccounts()) {
+            return $accounts[0]->getSortCode();
+        }
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getPayWithinXDays()
     {
         return $this->getConfigData('paywithinxdays', $this->getStoreId());

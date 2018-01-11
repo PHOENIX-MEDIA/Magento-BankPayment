@@ -26,7 +26,9 @@ $accountData = array(
     'account_holder' => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankaccountholder'")),
     'bank_name'      => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankname'")),
     'iban'           => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankiban'")),
-    'bic'            => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankbic'"))
+    'bic'            => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankbic'")),
+    'account_number' => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/bankaccountnumber'")),
+    'sort_code'      => array('', $installer->getConnection()->fetchOne("select value from ".$installer->getTable('core/config_data')." where scope='default' and path='payment/bankpayment/sortcode'"))
 );
 $installer->setConfigData('payment/bankpayment/bank_accounts', serialize($accountData));
 
