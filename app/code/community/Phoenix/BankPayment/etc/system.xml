@@ -99,7 +99,7 @@
                         <bank_accounts translate="label,comment">
                             <label>Bank Accounts</label>
                             <frontend_model>bankpayment/adminhtml_system_config_form_bankaccount</frontend_model>
-                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <backend_model>bankpayment/adminhtml_system_config_backend_serialized_array</backend_model>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

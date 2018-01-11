@@ -110,7 +110,6 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
                 ->setClass('add '.$this->_getDisabled())
                 ->setLabel($this->__($title))
                 ->setOnClick("Element.insert($('".$container."'), {bottom: $('".$template."').innerHTML})")
-                ->setDisabled($this->_getDisabled())
                 ->toHtml();
         }
         return $this->_addRowButtonHtml[$container];
@@ -129,7 +128,6 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
                 ->setClass('delete v-middle '.$this->_getDisabled())
                 ->setLabel($this->__($title))
                 ->setOnClick("Element.remove($(this).up('".$selector."'))")
-                ->setDisabled($this->_getDisabled())
                 ->toHtml();
         }
         return $this->_removeRowButtonHtml;
