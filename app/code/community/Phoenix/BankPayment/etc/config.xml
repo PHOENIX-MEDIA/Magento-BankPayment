@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Phoenix_BankPayment>
-            <version>1.3.1</version>
+            <version>1.3.2</version>
         </Phoenix_BankPayment>
     </modules>
     <global>
@@ -83,6 +83,13 @@
         </translate>
     </adminhtml>
     <frontend>
+        <layout>
+            <updates>
+                <bankpayment>
+                    <file>phoenix/bankpayment.xml</file>
+                </bankpayment>
+            </updates>
+        </layout>
         <translate>
             <modules>
                 <Phoenix_BankPayment>

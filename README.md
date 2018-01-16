@@ -35,6 +35,9 @@ Changelog
 
 From 1.1.0 see changelog in Release Notes tab.
 
+1.3.2:
+- Add 'show custom text in order confirmation emails'
+
 1.3.1:
 - Fix localization issues
 - Fix poor representation of account data in admin section
