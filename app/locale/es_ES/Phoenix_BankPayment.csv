@@ -18,7 +18,7 @@
 "Bank Accounts","Cuentas bancarias"
 "Add Bank Account","Agregar cuenta bancaria"
 "Delete Account","Eliminar cuenta"
-"Add your bank accounts data","¡Por favor, complete los datos bancarios!"
+"Add your bank accounts data","¡Por favor, complete los datos bancarios! El número de cuenta y el código bancario o IBAN y BIC deben estar en pares."
 "Form CMS Page","Formulario página CMS"
 "Choose CMS page to display a link instead of the bank accounts in the payment form","Eliga la página CMS para visualizar un enlace en vez de las cuentas bancarias en el formulario de pago"
 "Show bank accounts in PDF","Mostrar cuentas bancarias en PDF"
