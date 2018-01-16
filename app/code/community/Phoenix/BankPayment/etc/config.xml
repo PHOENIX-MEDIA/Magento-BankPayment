@@ -11,15 +11,16 @@
  *
  * @category   Mage
  * @package    Phoenix_BankPayment
- * @copyright  Copyright (c) 2008 Andrej Sinicyn
- * @copyright  Copyright (c) 2010-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
+ * @copyright  Copyright (c) 2008-2009 Andrej Sinicyn, Mik3e
+ * @copyright  Copyright (c) 2010-2016 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2017-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- -->
+-->
 <config>
     <modules>
         <Phoenix_BankPayment>
-            <version>1.3.0</version>
+            <version>1.3.2</version>
         </Phoenix_BankPayment>
     </modules>
     <global>
@@ -28,6 +29,16 @@
                 <class>Phoenix_BankPayment_Model</class>
             </bankpayment>
         </models>
+        <blocks>
+            <bankpayment>
+                <class>Phoenix_BankPayment_Block</class>
+            </bankpayment>
+        </blocks>
+        <helpers>
+            <bankpayment>
+                <class>Phoenix_BankPayment_Helper</class>
+            </bankpayment>
+        </helpers>
         <resources>
             <bankpayment_setup>
                 <setup>
@@ -45,16 +56,6 @@
                 <use>core_read</use>
             </bankpayment_read>
         </resources>
-        <blocks>
-            <bankpayment>
-                <class>Phoenix_BankPayment_Block</class>
-            </bankpayment>
-        </blocks>
-        <helpers>
-            <bankpayment>
-                <class>Phoenix_BankPayment_Helper</class>
-            </bankpayment>
-        </helpers>        
     </global>
     <default>
         <payment>
@@ -82,6 +83,13 @@
         </translate>
     </adminhtml>
     <frontend>
+        <layout>
+            <updates>
+                <bankpayment>
+                    <file>phoenix/bankpayment.xml</file>
+                </bankpayment>
+            </updates>
+        </layout>
         <translate>
             <modules>
                 <Phoenix_BankPayment>
