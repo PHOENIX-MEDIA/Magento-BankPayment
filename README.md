@@ -4,12 +4,50 @@ BankPayment
 The module allows you to enter one or more bank accounts in the payment configuration which are displayed to the customer during the checkout and the order email to notify him where to transfer the money.
 
 This extension is maintained by PHOENIX MEDIA, Magento Enterprise Partner in Stuttgart and Vienna.
- 
+
+
+Features
+--------
+
+* prepayment payment method
+* SEPA ready
+* allow to display multiple bank accounts
+* show bank accounts dependent on order currency
+* define minimum order total
+* define maximum order total
+* show bank accounts in PDF
+* show custom text in order confirmation emails
+* show custom text in order confirmation emails for specific billing countries
+* pay within X days
+* show custom text in checkout
+* show custom text in PDF
+* show link to CMS-Page instead of displaying account details in checkout
+
+
+Compatibility
+-------------
+
+In older versions of Magento there may be also a Mage_BankPayment core extension which is not compatible.
+
 
 Changelog
 ---------
 
 From 1.1.0 see changelog in Release Notes tab.
+
+1.3.1:
+- Fix localization issues
+- Fix poor representation of account data in admin section
+
+1.3.0:
+- Re-added (optional) account number and sort code for non SEPA countries
+- add locale 'pt_PT'
+- Fix issues #13 (Multi Store Problem)
+- Added backend model for serialized array to fix magento core bug resulting in a catched exception
+- Some refactoring, clean up source code
+
+1.2.0:
+- IBAN ready (but without 'AccountNumber' and 'SortCode')
 
 1.0.0:
 - version 0.3.4 is considered as stable
