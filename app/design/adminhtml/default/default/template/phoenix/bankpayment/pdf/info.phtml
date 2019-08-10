@@ -14,17 +14,24 @@
  * @copyright  Copyright (c) 2010-2016 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
  * @copyright  Copyright (c) 2017-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+ * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 ?>
+<?php
+    $_helper = Mage::helper('bankpayment');
+    $quoteCurrencyCode = $this->getQuoteCurrencyCode();
+?>
 <?php if ($_info = $this->getInfo()): ?>
-    <?php $_helper = Mage::helper('bankpayment'); ?>
     <?php echo $this->getMethod()->getTitle(); ?>
     <?php if ($this->getShowBankAccountsInPdf()): ?>
         <?php echo ' - '.$this->__('Account info'); ?>
         {{pdf_row_separator}}
         <?php $_accounts = $this->getAccounts(); ?>
         <?php foreach ($_accounts as $_account): ?>
-            <?php if ($_helper->displayAccountData($_account)): ?>
+            <?php if ($_helper->displayAccountData($_account, $quoteCurrencyCode)): ?>
                 {{pdf_row_separator}}
                 <?php if ($_accountHolder = $_account->getAccountHolder()): ?>
                     <?php echo $this->__('Account holder') ?>: <?php echo $_accountHolder ?>

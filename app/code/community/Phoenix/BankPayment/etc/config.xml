@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Phoenix_BankPayment>
-            <version>1.3.3</version>
+            <version>1.4.0</version>
         </Phoenix_BankPayment>
     </modules>
     <global>

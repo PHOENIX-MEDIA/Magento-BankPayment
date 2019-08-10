@@ -35,6 +35,9 @@ In older versions of Magento there may be also a Mage_BankPayment core extension
 Changelog
 ---------
 
+1.4.0:
+- Add 'show bank accounts dependent on order currency' (Thanks to [arosenhagen](https://github.com/ffuenf/Ffuenf_BankPayment/commit/7bad3ff4850cb8e4991c06f87c0b58304a2335f0))
+
 1.3.3:
 - Improved design details in admin sector, modified displayed messages.
 - Fixing frontend model html of bank accounts data including localization issues.

@@ -9,7 +9,7 @@
    <description>Bank Prepayment module which notifies the buyer to which bank account he has to transfer the money.</description>
    <license>OSL</license>
    <license_uri>http://opensource.org/licenses/osl-3.0.php</license_uri>
-   <version>1.3.3</version>
+   <version>1.4.0</version>
    <stability>stable</stability>
    <notes>Offizielle Version mit eigenen Verbesserungen in Funktion und Lokalisierung.
 

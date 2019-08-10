@@ -58,6 +58,7 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
      */
     protected function _getRowTemplateHtml($i = 0)
     {
+        $allowedCurrencies = Mage::getModel('directory/currency')->getConfigAllowCurrencies();
         $html = '<li><fieldset>';
         $html .= '<p>';
         $html .= '<label>' . $this->__('Account holder') . '</label><br />';
@@ -87,6 +88,14 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
         $html .= '<p>';
         $html .= '<label>' . $this->__('Sort code') . '</label><br />';
         $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[sort_code][]" value="' . $this->_getValue('sort_code/' . $i) . '" ' . $this->_getDisabled() . ' />';
+        $html .= '</p>';
+        $html .= '<p>&nbsp;</p>';
+        $html .= '<p>';
+        $html .= '<label>' . $this->__('Allowed Currencies') . '</label>:';
+        $html .= '</p><p>';
+        foreach ($allowedCurrencies as $k => $v) {
+            $html .= '&nbsp; &nbsp;<input type="checkbox" name="' . $this->getElement()->getName() . '[currencies][' . $i . '][]" value="' . $v . '" ' . (is_array($this->_getValue('currencies/' . $i)) ? in_array($v, $this->_getValue('currencies/' . $i)) ? 'checked=checked' : '' : '') . ' /> ' . $v . '<br />';
+        }
         $html .= '</p>';
         $html .= $this->_getRemoveRowButtonHtml();
         $html .= '</fieldset></li>';
