@@ -10,9 +10,14 @@
  *
  * @category   Mage
  * @package    Phoenix_BankPayment
- * @copyright  Copyright (c) 2008 Andrej Sinicyn
- * @copyright  Copyright (c) 2010-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
+ * @copyright  Copyright (c) 2008-2009 Andrej Sinicyn
+ * @copyright  Copyright (c) 2010-2016 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2017-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+ * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Abstract
@@ -86,6 +91,7 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
         }
         return null;
     }
+
     /**
      * @return string|null
      */
@@ -130,8 +136,6 @@ class Phoenix_BankPayment_Model_BankPayment extends Mage_Payment_Model_Method_Ab
             $this->_storeId = $currentOrder->getStoreId();
         } elseif ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
             $this->_storeId = $paymentInfo->getOrder()->getStoreId();
-        }  else {
-            $this->_storeId = $paymentInfo->getQuote()->getStoreId();
         }
         return $this->_storeId;
     }

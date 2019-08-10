@@ -10,67 +10,64 @@
  *
  * @category   Mage
  * @package    Phoenix_BankPayment
- * @copyright  Copyright (c) 2008 Andrej Sinicyn
- * @copyright  Copyright (c) 2010-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
+ * @copyright  Copyright (c) 2008-2009 Andrej Sinicyn, Mik3e
+ * @copyright  Copyright (c) 2010-2016 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2017-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 ?>
 <p>
     <?php echo $this->getMethod()->getTitle(); ?> - <span style="font-style:italic;"><?php echo $this->__('Account info'); ?></span><br />
     <?php $_helper = Mage::helper('bankpayment'); ?>
     <?php $_accounts = $this->getAccounts(); ?>
-    <?php foreach($_accounts as $_account): ?>
-    <br />
-    <table class="bankpayment_info">
-        <tbody>
-        <?php if ($_accountHolder = $_account->getAccountHolder()): ?>
-            <tr>
-                <td class="bankcol1"><label><?php echo $this->__('Account holder') ?>:</label> </td>
-                <td class="bankcol2"><?php echo $_accountHolder ?></td>
-            </tr>
+    <?php foreach ($_accounts as $_account): ?>
+        <?php if ($_helper->displayAccountData($_account)): ?>
+            <br />
+            <table class="bankpayment_info">
+                <tbody>
+                <?php if ($_accountHolder = $_account->getAccountHolder()): ?>
+                    <tr>
+                        <td class="bankcol1"><label><?php echo $this->__('Account holder') ?></label>: </td>
+                        <td class="bankcol2"><?php echo $_accountHolder ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($_bankName = $_account->getBankName()): ?>
+                    <tr>
+                        <td class="bankcol1"><label><?php echo $this->__('Bank name') ?></label>: </td>
+                        <td class="bankcol2"><?php echo $_bankName ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($_helper->displaySepaAccountData($_account)): ?>
+                    <?php if ($_helper->displayNonSepaAccountData($_account)): ?>
+                        // Display only if both types of Account Data are in use
+                        <tr><td colspan="2" style="font-style:italic;padding-top:5px;"><?php echo $this->__('Account data for SEPA countries'); ?></td></tr>
+                    <?php endif; ?>
+                    <tr>
+                        <td class="bankcol1"><label><?php echo $this->__('IBAN') ?></label>: </td>
+                        <td class="bankcol2"><?php echo $_account->getIban() ?></td>
+                    </tr>
+                    <tr>
+                        <td class="bankcol1"><label><?php echo $this->__('BIC') ?></label>: </td>
+                        <td class="bankcol2"><?php echo $_account->getBic() ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($_helper->displayNonSepaAccountData($_account)): ?>
+                    <?php if ($_helper->displaySepaAccountData($_account)): ?>
+                        // Display only if both types of Account Data are in use
+                        <tr><td colspan="2" style="font-style:italic;padding-top:5px;"><?php echo $this->__('Account data for non SEPA countries'); ?></td></tr>
+                    <?php endif; ?>
+                    <tr>
+                        <td class="bankcol1"><label><?php echo $this->__('Account number') ?></label>: </td>
+                        <td class="bankcol2"><?php echo $_account->getAccountNumber() ?></td>
+                    </tr>
+                    <tr>
+                        <td class="bankcol1"><label><?php echo $this->__('Sort code') ?></label>: </td>
+                        <td class="bankcol2"><?php echo $_account->getSortCode() ?></td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
         <?php endif; ?>
-        <?php if ($_bankName = $_account->getBankName()): ?>
-            <tr>
-                <td class="bankcol1"><label><?php echo $this->__('Bank name') ?>:</label> </td>
-                <td class="bankcol2"><?php echo $_bankName ?></td>
-            </tr>
-        <?php endif; ?>
-        <?php if ($_helper->displaySepaAccountData($_account)): ?>
-            <?php if ($_iban = $_account->getIban()): ?>
-            <tr>
-                <td class="bankcol1"><label><?php echo $this->__('IBAN') ?>:</label> </td>
-                <td class="bankcol2"><?php echo $_iban ?></td>
-            </tr>
-            <?php endif; ?>
-            <?php if ($_bic = $_account->getBic()): ?>
-            <tr>
-                <td class="bankcol1"><label><?php echo $this->__('BIC') ?>:</label> </td>
-                <td class="bankcol2"><?php echo $_bic ?></td>
-            </tr>
-            <?php endif; ?>
-        <?php endif; ?>
-        <?php if ($_helper->displayNonSepaAccountData($_account)): ?>
-            <?php if ($_helper->displayFullAccountData($_account)): ?>
-                <tr>
-                    <td colspan="2"><br /><strong><?php echo $this->__('Account data for non SEPA countries'); ?></strong></td>
-                </tr>
-            <?php endif; ?>
-            <?php if ($_accountNumber = $_account->getAccountNumber()): ?>
-                <tr>
-                    <td class="bankcol1"><label><?php echo $this->__('Account number') ?>:</label> </td>
-                    <td class="bankcol2"><?php echo $_accountNumber ?></td>
-                </tr>
-            <?php endif; ?>
-            <?php if ($_sortCode = $_account->getSortCode()): ?>
-                <tr>
-                    <td class="bankcol1"><label><?php echo $this->__('Sort code') ?>:</label> </td>
-                    <td class="bankcol2"><?php echo $_sortCode ?></td>
-                </tr>
-            <?php endif; ?>
-        <?php endif; ?>
-        </tbody>
-    </table>
     <?php endforeach; ?>
     <?php if ($_customText = $this->getMethod()->getCustomText()): ?>
         <br />

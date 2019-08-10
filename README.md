@@ -5,6 +5,8 @@ The module allows you to enter one or more bank accounts in the payment configur
 
 This extension is maintained by PHOENIX MEDIA, Magento Enterprise Partner in Stuttgart and Vienna.
 
+This is a fork from [PHOENIX-MEDIA/Magento-BankPayment](https://github.com/PHOENIX-MEDIA/Magento-BankPayment).
+
 
 Features
 --------
@@ -33,24 +35,28 @@ In older versions of Magento there may be also a Mage_BankPayment core extension
 Changelog
 ---------
 
-From 1.1.0 see changelog in Release Notes tab.
+1.3.3:
+- Improved design details in admin sector, modified displayed messages.
+- Fixing frontend model html of bank accounts data including localization issues.
 
 1.3.2:
-- Add 'show custom text in order confirmation emails'
+- Add 'show custom text in order confirmation emails' (Thanks to [arosenhagen](https://github.com/ffuenf/Ffuenf_BankPayment/commits/cacea40890a2c2d9bbe5c784b4a0bc5fe058fac9/app/design/frontend/base/default/template/bankpayment/email/message.phtml))
 
 1.3.1:
 - Fix localization issues
 - Fix poor representation of account data in admin section
 
 1.3.0:
-- Re-added (optional) account number and sort code for non SEPA countries
+- Re-added (optional) account number and sort code for non SEPA countries as fallback
 - add locale 'pt_PT'
 - Fix issues #13 (Multi Store Problem)
 - Added backend model for serialized array to fix magento core bug resulting in a catched exception
 - Some refactoring, clean up source code
 
 1.2.0:
-- IBAN ready (but without 'AccountNumber' and 'SortCode')
+- IBAN ready (as in [PHOENIX-MEDIA Version 1.2.0](https://github.com/PHOENIX-MEDIA/Magento-BankPayment/releases/tag/1.2.0))
+
+From 1.1.0 see changelog in [Release Notes tab](https://github.com/PHOENIX-MEDIA/Magento-BankPayment/releases).
 
 1.0.0:
 - version 0.3.4 is considered as stable
@@ -73,26 +79,26 @@ From 1.1.0 see changelog in Release Notes tab.
 - Support for CMS notification page (adopts idea from Market Ready Germany package (symmetrics))
 - Min/max order total configuration option
 - Additional translations for DK, ES, FR (thanks to the community)
-- Configurable on store view level </span></span>
+- Configurable on store view level
 
 0.2.5:
-- added Polish locale</span>
+- added Polish locale
 
 0.2.4:
-- added Greek and Italian locales</span></span>
+- added Greek and Italian locales
 
 0.2.3:
-- added Dutch and Portuguese (Brazil) locales</span></span>
+- added Dutch and Portuguese (Brazil) locales
 
 0.2.2:
 - custom text field converted to custom text area (multiline)
-- bank data is now aligned in a table</span></span>
+- bank data is now aligned in a table
 
 0.2.1:
 - custom text field added
 - added Norwegian Bokmål locale
 - moved from local to community code space
-Important: <span>As the code was moved from local to community code space, you have to remove the folder manually /app/code/local/Mage/BankPayment to clean up your existing Magento installation.</span></span></span>
+Important: As the code was moved from local to community code space, you have to remove the folder manually /app/code/local/Mage/BankPayment to clean up your existing Magento installation.
 
 0.2.0:
 - first public release

@@ -10,10 +10,14 @@
  *
  * @category   Mage
  * @package    Phoenix_BankPayment
- * @copyright  Copyright (c) 2008-2009 Andrej Sinicyn, Mik3e
+ * @copyright  Copyright (c) 2008-2009 Andrej Sinicyn
  * @copyright  Copyright (c) 2010-2016 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
  * @copyright  Copyright (c) 2017-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+ * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
 class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends Mage_Adminhtml_Block_System_Config_Form_Field
@@ -22,7 +26,7 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
     protected $_removeRowButtonHtml = array();
 
     /**
-     * @param Varien_Data_Form_Element_Abstract $element
+     * @param string Varien_Data_Form_Element_Abstract
      * @return string
      */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -34,8 +38,8 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
         $html .= '</div>';
 
         $html .= '<ul id="bank_account_container">';
-        if ($this->_getValue('account_holder')) {
-            foreach ($this->_getValue('account_holder') as $i => $f) {
+        if ($accountHolder = $this->_getValue('account_holder')) {
+            foreach ($accountHolder as $i => $f) {
                 if ($i) {
                     $html .= $this->_getRowTemplateHtml($i);
                 }
@@ -55,21 +59,35 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
     protected function _getRowTemplateHtml($i = 0)
     {
         $html = '<li><fieldset>';
-        $html .= '<label>' . $this->__('Account holder') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[account_holder][]" value="' . $this->_getValue('account_holder/' . $i) . '" ' . $this->_getDisabled() . ' /><br/>';
-        $html .= '<label>' . $this->__('Bank name') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[bank_name][]" value="' . $this->_getValue('bank_name/' . $i) . '" ' . $this->_getDisabled() . ' /><br/>';
-        $html .= '&nbsp;<br/>';
-        $html .= '<label>' . $this->__('IBAN') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[iban][]" value="' . $this->_getValue('iban/' . $i) . '" ' . $this->_getDisabled() . ' /><br/>';
-        $html .= '<label>' . $this->__('BIC') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[bic][]" value="' . $this->_getValue('bic/' . $i) . '" ' . $this->_getDisabled() . ' /><br/>';
-        $html .= '<br/><strong>' . $this->__('Account data for non SEPA countries').'</strong><br/><br/>';
-        $html .= '<label>' . $this->__('Account number') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[account_number][]" value="' . $this->_getValue('account_number/' . $i) . '" ' . $this->_getDisabled() . ' /><br/>';
-        $html .= '<label>' . $this->__('Sort code') . '</label><br/>';
-        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[sort_code][]" value="' . $this->_getValue('sort_code/' . $i) . '" ' . $this->_getDisabled() . ' /><br/>';
-        $html .= '&nbsp;<br/>';
+        $html .= '<p>';
+        $html .= '<label>' . $this->__('Account holder') . '</label><br />';
+        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[account_holder][]" value="' . $this->_getValue('account_holder/' . $i) . '" ' . $this->_getDisabled() . ' />';
+        $html .= '</p>';
+        $html .= '<p>';
+        $html .= '<label>' . $this->__('Bank name') . '</label><br />';
+        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[bank_name][]" value="' . $this->_getValue('bank_name/' . $i) . '" ' . $this->_getDisabled() . ' />';
+        $html .= '</p>';
+        $html .= '<p>&nbsp;</p>';
+        $html .= '<p>';
+        $html .= '<label>' . $this->__('IBAN') . '</label><br />';
+        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[iban][]" value="' . $this->_getValue('iban/' . $i) . '" ' . $this->_getDisabled() . ' />';
+        $html .= '</p>';
+        $html .= '<p>';
+        $html .= '<label>' . $this->__('BIC') . '</label><br />';
+        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[bic][]" value="' . $this->_getValue('bic/' . $i) . '" ' . $this->_getDisabled() . ' />';
+        $html .= '</p>';
+        $html .= '<p>&nbsp;</p>';
+        $html .= '<p>';
+        $html .= '<strong>' . $this->__('Account data for non SEPA countries') . '</strong>';
+        $html .= '</p>';
+        $html .= '<p>';
+        $html .= '<label>' . $this->__('Account number') . '</label><br />';
+        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[account_number][]" value="' . $this->_getValue('account_number/' . $i) . '" ' . $this->_getDisabled() . ' />';
+        $html .= '</p>';
+        $html .= '<p>';
+        $html .= '<label>' . $this->__('Sort code') . '</label><br />';
+        $html .= '<input class="input-text" type="text" name="' . $this->getElement()->getName() . '[sort_code][]" value="' . $this->_getValue('sort_code/' . $i) . '" ' . $this->_getDisabled() . ' />';
+        $html .= '</p>';
         $html .= $this->_getRemoveRowButtonHtml();
         $html .= '</fieldset></li>';
 
@@ -85,8 +103,8 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
     }
 
     /**
-     * @param $key
-     * @return mixed
+     * @param string $key
+     * @return string
      */
     protected function _getValue($key)
     {
@@ -94,8 +112,8 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
     }
 
     /**
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param string $value
      * @return string
      */
     protected function _getSelected($key, $value)
@@ -107,7 +125,7 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
      * @param $container
      * @param $template
      * @param string $title
-     * @return mixed
+     * @return array
      */
     protected function _getAddRowButtonHtml($container, $template, $title = 'Add')
     {

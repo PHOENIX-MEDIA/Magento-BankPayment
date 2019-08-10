@@ -26,6 +26,6 @@
 -->
 <layout>
   <sales_email_order_payment_message>
-    <block type="core/template" template="phoenix_bankpayment/email/message.phtml" />
+    <block type="core/template" template="phoenix/bankpayment/email/message.phtml" />
   </sales_email_order_payment_message>
 </layout>

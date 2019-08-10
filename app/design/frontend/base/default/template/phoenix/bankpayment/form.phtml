@@ -10,16 +10,16 @@
  *
  * @category   Mage
  * @package    Phoenix_BankPayment
- * @copyright  Copyright (c) 2008 Andrej Sinicyn
- * @copyright  Copyright (c) 2010-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
+ * @copyright  Copyright (c) 2008-2009 Andrej Sinicyn, Mik3e
+ * @copyright  Copyright (c) 2010-2016 Phoenix Medien GmbH & Co. KG (http://www.phoenix-medien.de)
+ * @copyright  Copyright (c) 2017-2018 Phoenix Media GmbH & Co. KG (http://www.phoenix-media.eu)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 ?>
 <?php $_helper = Mage::helper('bankpayment'); ?>
 <fieldset class="form-list">
-    <ul id="payment_form_<?php echo $this->getMethodCode(); ?>" style="display:none">
-        <li>
+<ul id="payment_form_<?php echo $this->getMethodCode(); ?>" style="display:none">
+    <li>
         <?php if ($_cmsPage = $this->getFormCmsUrl()): ?>
             <div class="input-box">
                 <p><?php echo $this->__('More information on this payment method can be found <a target="_blank" href="%s">here</a>.', $_cmsPage) ?></p>
@@ -41,48 +41,45 @@
             <br /><br />
             <div class="input-box">
                 <?php $first = true; ?>
-                <?php foreach($_accounts as $_account): ?>
-                    <?php if (!$first): ?>
-                    <br /><hr/><br />
-                    <?php endif; $first = false; ?>
-                    <table>
-                        <tbody>
-                            <?php if ($_accountHolder = $_account->getAccountHolder()): ?>
-                                <tr><td><label><?php echo $this->__('Account holder') ?>:</label> </td><td><?php echo $_accountHolder ?></td></tr>
-                            <?php endif; ?>
-                            <?php if ($_bankName = $_account->getBankName()): ?>
-                                <tr><td><label><?php echo $this->__('Bank name') ?>:</label> </td><td><?php echo $_bankName ?></td></tr>
-                            <?php endif; ?>
-                            <?php if ($_helper->displaySepaAccountData($_account)): ?>
-                                <?php if ($_iban = $_account->getIban()): ?>
-                                    <tr><td><label><?php echo $this->__('IBAN') ?>:</label> </td><td><?php echo $_iban ?></td></tr>
+                <?php foreach ($_accounts as $_account): ?>
+                    <?php if ($_helper->displayAccountData($_account)): ?>
+                        <?php if (!$first): ?>
+                        <br /><hr/><br />
+                        <?php endif; $first = false; ?>
+                        <table>
+                            <tbody>
+                                <?php if ($_accountHolder = $_account->getAccountHolder()): ?>
+                                    <tr><td><label><?php echo $this->__('Account holder') ?></label>: </td><td><?php echo $_accountHolder ?></td></tr>
                                 <?php endif; ?>
-                                <?php if ($_bic = $_account->getBic()): ?>
-                                    <tr><td><label><?php echo $this->__('BIC') ?>:</label> </td><td><?php echo $_bic ?></td></tr>
+                                <?php if ($_bankName = $_account->getBankName()): ?>
+                                    <tr><td><label><?php echo $this->__('Bank name') ?></label>: </td><td><?php echo $_bankName ?></td></tr>
                                 <?php endif; ?>
-                            <?php endif; ?>
-                            <?php if ($_helper->displayNonSepaAccountData($_account)): ?>
-                                <?php if ($_helper->displayFullAccountData($_account)): ?>
-                                    <tr><td colspan="2"><br /><strong><?php echo $this->__('Account data for non SEPA countries'); ?></strong></td></tr>
+                                <?php if ($_helper->displaySepaAccountData($_account)): ?>
+                                    <?php if ($_helper->displayNonSepaAccountData($_account)): ?>
+                                        // Display only if both types of Account Data are in use
+                                        <tr><td colspan="2"><br /><strong><?php echo $this->__('For international transfers please use the following data'); ?></strong></td></tr>
+                                    <?php endif; ?>
+                                    <tr><td><label><?php echo $this->__('IBAN') ?></label>: </td><td><?php echo $_account->getIban() ?></td></tr>
+                                    <tr><td><label><?php echo $this->__('BIC') ?></label>: </td><td><?php echo $_account->getBic() ?></td></tr>
                                 <?php endif; ?>
-                                <?php if ($_accountNumber = $_account->getAccountNumber()): ?>
-                                    <tr><td><label><?php echo $this->__('Account number') ?>:</label> </td><td><?php echo $_accountNumber ?></td>
-                                    </tr>
+                                <?php if ($_helper->displayNonSepaAccountData($_account)): ?>
+                                    <?php if ($_helper->displaySepaAccountData($_account)): ?>
+                                        // Display only if both types of Account Data are in use
+                                        <tr><td colspan="2"><br /><strong><?php echo $this->__('For non SEPA countries please use the following data'); ?></strong></td></tr>
+                                    <?php endif; ?>
+                                    <tr><td><label><?php echo $this->__('Account number') ?></label>: </td><td><?php echo $_account->getAccountNumber() ?></td></tr>
+                                    <tr><td><label><?php echo $this->__('Sort code') ?></label>: </td><td><?php echo $_account->getSortCode() ?></td></tr>
                                 <?php endif; ?>
-                                <?php if ($_sortCode = $_account->getSortCode()): ?>
-                                    <tr><td><label><?php echo $this->__('Sort code') ?>:</label> </td><td><?php echo $_sortCode ?></td>
-                                    </tr>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
                 <?php endforeach; ?>
-                <?php if ($_customText = $this->getMethod()->getCustomText()): ?>
+                <?php if ($this->getMethod()->getCustomText()): ?>
                     <br />
-                    <?php echo $_customText ?><br />
+                    <?php echo $this->getMethod()->getCustomText() ?><br />
                 <?php endif; ?>
             </div>
         <?php endif; ?>
-        </li>
-    </ul>
+    </li>
+</ul>
 </fieldset>
