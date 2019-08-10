@@ -26,7 +26,7 @@ class Phoenix_BankPayment_Block_Adminhtml_System_Config_Form_Bankaccount extends
     protected $_removeRowButtonHtml = array();
 
     /**
-     * @param string Varien_Data_Form_Element_Abstract
+     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)

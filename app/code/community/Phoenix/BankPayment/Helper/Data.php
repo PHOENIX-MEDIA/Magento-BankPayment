@@ -41,12 +41,12 @@ class Phoenix_BankPayment_Helper_Data extends Phoenix_BankPayment_Helper_Core {
     }
 
     /**
-     * @param Varien_Object $account, $quoteCurrencyCode
+     * @param Varien_Object $account, array $quoteCurrencyCode
      * @return bool
      */
     public function displayAccountData($account, $quoteCurrencyCode) {
-        $validCurrencyCode = ($quoteCurrencyCode != '') && in_array($quoteCurrencyCode, $_account->getCurrencies());
-        $validAccountData = (this->displaySepaAccountData($account) || $this->displayNonSepaAccountData($account));
+        $validCurrencyCode = ($quoteCurrencyCode != '') && in_array($quoteCurrencyCode, $account->getCurrencies());
+        $validAccountData = (($account->getIban() && $account->getBic()) || ($account->getAccountNumber() && $account->getSortCode()));
         return ($validCurrencyCode && $validAccountData);
     }
 
